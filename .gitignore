@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment variables (NEVER upload your secrets to GitHub!)
+.env
+client/.env
+server/.env
+
+# Build files
+build/
+dist/
