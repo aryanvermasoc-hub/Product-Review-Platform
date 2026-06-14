@@ -51,15 +51,15 @@ const AnimatedRoutes = () => {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <CartProvider>
           <Header />
           <AnimatedRoutes />
           <CartDrawer />
-        </BrowserRouter>
-      </CartProvider>
-    </AuthProvider>
+        </CartProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 
