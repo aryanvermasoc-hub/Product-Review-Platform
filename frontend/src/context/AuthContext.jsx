@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import api from '../lib/api';
 import { AuthContext } from './authStore';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(
     localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
   );
   const [authLoading, setAuthLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const login = (userData) => {
     setUserInfo(userData);
@@ -16,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUserInfo(null);
     localStorage.removeItem('userInfo');
+    navigate('/login');
   };
 
   const signIn = async (payload, admin = false) => {

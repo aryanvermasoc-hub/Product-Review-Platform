@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { BarChart3, Home, LogOut, Search, Shield, ShoppingBag, UserRound } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/authStore';
@@ -8,6 +8,7 @@ import { useCart } from '../context/cartStore';
 const Header = () => {
   const { userInfo, logout } = useAuth();
   const { itemCount, setCartOpen } = useCart();
+  const navigate = useNavigate();
 
   // Safely check if the logged-in user has admin privileges
   const isUserAdmin = userInfo && (userInfo.isAdmin || ['admin', 'super-admin'].includes(userInfo.role));
@@ -39,8 +40,8 @@ const Header = () => {
     ['cartItems', 'recentSearches', 'recentCategory', 'recentSearch', 'recentlyViewed', 'savedItems', 'recentBrand', 'recentMinRating', 'recentSort'].forEach(key => localStorage.removeItem(key));
     sessionStorage.clear();
     
-    // 3. Force a full page reload to clear any remaining in-memory React state
-    window.location.href = '/login';
+    // 3. Navigate to the login page smoothly without a hard refresh
+    navigate('/login');
   };
 
   return (
