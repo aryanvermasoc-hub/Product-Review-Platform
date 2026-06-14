@@ -39,10 +39,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/admin', adminRoutes);
+import reviewRoutes from './routes/reviewRoutes.js';
+app.use('/api/reviews', reviewRoutes);
 
-// (Review routes are still commented out because we haven't built that controller yet)
-// import reviewRoutes from './routes/reviewRoutes.js';
-// app.use('/api/reviews', reviewRoutes);
+// TODO: Create reviewRoutes.js and reviewController.js to handle review logic
 
 // 7. Define Port and Start Server
 const PORT = process.env.PORT || 5000;

@@ -1,89 +1,124 @@
 # Product Review Platform
 
-A premium, full-stack e-commerce and product intelligence platform. Designed for performance, this application features seamless data synchronization, deep technical specification comparisons, and a rich, interactive catalog experience.
+A modern, premium full-stack e-commerce and product review platform. It features a rich shopping catalog with instant search, smart filters, product comparisons, live cart estimates, and a comprehensive administrative dashboard for managing orders, products, and user reviews.
 
-## 🌟 Key Features
+## 🚀 Tech Stack
 
-*   **Smart Catalog & Search:** Advanced faceted filtering (by brand, category, and minimum rating), sorting, and search with a personalized trending/recent searches history.
-*   **Spec Battle (Comparison):** A dedicated side-by-side product comparison engine with a VIP sorting algorithm that prioritizes key technical specifications (Processor, RAM, Storage, etc.).
-*   **Cloud-Synced User Profiles:** A smart restore system that seamlessly merges anonymous local data (Carts, Saved Items, Recent Views) with cloud MongoDB state upon login.
-*   **Community Reviews:** Real-time product ratings and user-generated review submissions.
-*   **Integrated Admin Controls:** In-line CRUD controls allowing Super Admins to create, edit, and delete products directly from the live store interface.
-*   **Responsive UI:** Fluid animations via Framer Motion with an adaptive layout optimized for all device sizes.
+### Frontend
+- **Framework:** React.js powered by Vite
+- **State Management:** React Context API (`useCart`, `useAuth`)
+- **Routing:** React Router DOM
+- **Styling & Animations:** Framer Motion (for smooth micro-interactions and scroll reveals), custom CSS
+- **Icons:** Lucide React
+- **HTTP Client:** Axios (with interceptors for JWT auth management)
 
-## 💻 Tech Stack
+### Backend
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB with Mongoose ODM
+- **Authentication:** JSON Web Tokens (JWT) & HTTP-only cookies
+- **Security & Performance:** `cors`, `helmet`, `express-rate-limit`
 
-**Frontend Architecture:**
-*   [React 18](https://react.dev/) + [Vite](https://vitejs.dev/)
-*   [React Router v7](https://reactrouter.com/) (Data routing, nested layouts)
-*   [Framer Motion](https://www.framer.com/motion/) (Component animations & layout transitions)
-*   [Lucide React](https://lucide.dev/) (SVG Iconography)
+## ✨ Key Features
 
-**Backend Architecture:**
-*   [Node.js](https://nodejs.org/) & [Express.js](https://expressjs.com/)
-*   [MongoDB](https://www.mongodb.com/) & [Mongoose](https://mongoosejs.com/) (Object Data Modeling)
-*   [JSON Web Tokens (JWT)](https://jwt.io/) & [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) (Authentication & Security)
-*   [CSV-Parser](https://www.npmjs.com/package/csv-parser) (Automated data seeding)
+### User Experience (Frontend)
+- **Premium Catalog:** Browse products with intelligent pagination.
+- **Advanced Filtering:** Instantly filter by Category, Brand, Minimum Rating, and dynamic sorting (price, newest, top-rated).
+- **Smart Search:** Live keyword searching with locally cached "Recent Searches" and trending suggestions.
+- **Product Comparison:** Select up to 3 products to compare side-by-side.
+- **Shopping Cart:** Add to cart functionality with stock validation.
+- **Responsive Design:** Highly polished UI with glass-morphism panels, loading skeletons, and fluid animations.
 
-## 🚀 Getting Started
+### Robust API (Backend)
+- **Order Processing:** Advanced order price calculations handling taxes, shipping logic (free shipping thresholds), and dynamic coupon validation.
+- **Coupon Management:** Percentage-based or flat discount codes, featuring active windows, usage limits, and max-discount caps.
+- **Product Management:** Full CRUD operations for products, variant management, specifications, and related product recommendations.
+- **Review System:** Users can leave ratings and comments, instantly recalculating product aggregates.
+- **Admin Dashboard:** Real-time analytics utilizing MongoDB aggregation pipelines (Revenue, Average Order Value, Customer count, Low stock alerts, Traffic conversions).
+- **Role-Based Access Control:** Secure routes differentiated by `user`, `admin`, and `super-admin` roles.
+
+## 📂 Project Structure
+
+```text
+Product-Review-Platform/
+├── backend/
+│   ├── config/          # Database connection and environment configs
+│   ├── controllers/     # Route logic (Admin, Coupon, Order, Product, etc.)
+│   ├── middleware/      # Auth (JWT) and error handling middleware
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # Express route definitions
+│   └── server.js        # Application entry point
+└── frontend/
+    ├── src/
+    │   ├── context/     # Global state management
+    │   ├── lib/         # API utilities and axios setup
+    │   ├── screens/     # Page components (HomeScreen, etc.)
+    │   └── App.jsx      # Root component
+    ├── eslint.config.js # Linting configuration
+    └── vite.config.js   # Vite build configuration
+```
+
+## ⚙️ Getting Started
 
 ### Prerequisites
-*   Node.js (v18 or higher)
-*   MongoDB (Local instance or MongoDB Atlas cluster)
+- Node.js (v18+ recommended)
+- MongoDB instance (Local or Atlas)
 
-### 1. Installation
-Clone the repository and install dependencies for both the frontend and backend environments:
+### Backend Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `backend` directory and add your environment variables:
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   ```
+4. Start the server:
+   ```bash
+   # Development mode
+   npm run dev
+   # Production mode
+   npm start
+   ```
 
-```bash
-# Install backend dependencies
-cd backend
-npm install
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `frontend` directory:
+   ```env
+   VITE_API_URL=http://localhost:5000
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-# Install frontend dependencies
-cd ../frontend
-npm install
-```
+## 📝 API Endpoints Overview
 
-### 2. Environment Variables
-Create a `.env` file in the `/backend` directory with your configuration:
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_super_secret_jwt_key
-```
+- **Products:** `/api/products` (GET, POST, PUT, DELETE)
+- **Users:** `/api/users` (Auth, Profile sync)
+- **Orders:** `/api/orders` (Create, Estimate, Manage)
+- **Coupons:** `/api/coupons` (Validate, Create, Manage)
+- **Admin:** `/api/admin` (Dashboard analytics, Moderation)
+- **Reviews:** `/api/reviews` (Create and view product reviews)
 
-### 3. Database Initialization
-You can seed the database with the initial dataset and create your super admin account using the built-in scripts:
-```bash
-cd backend
-# Seed the MongoDB database using the provided CSV dataset
-node seeder.js
-# Generate the primary Super Admin account
-node createAdmin.js
-```
+## 🚀 Future Roadmap
+* Implement `reviewRoutes.js` and `reviewController.js` to decouple review moderation.
+* Add payment gateway integration (Stripe/PayPal) directly into the order flow.
+* Enhance user profiles with order tracking and saved comparison lists.
 
-### 4. Running the Application
-Run both the frontend and backend development servers concurrently:
+---
 
-```bash
-# Terminal 1: Run the backend API
-cd backend
-npm run dev
-
-# Terminal 2: Run the Vite frontend
-cd frontend
-npm run dev
-```
-
-+## 📁 Project Structure + +```text +Product-Review-Platform/ +├── backend/ +│ ├── config/ # Database connection and environment configurations +│ ├── controllers/ # Route logic (auth, products, users) +│ ├── data/ # Sample datasets (CSV) for database seeding +│ ├── middleware/ # Custom express middlewares (auth, error handling) +│ ├── models/ # Mongoose database schemas +│ ├── routes/ # Express API route definitions +│ ├── createAdmin.js # Admin user seeding script +│ ├── seeder.js # Product database seeding script +│ └── server.js # Entry point for the backend API +└── frontend/
-
-├── public/ # Static assets
-├── src/
-│ ├── components/ # Reusable UI components (Header, etc.)
-│ ├── context/ # Global state management (Auth, Cart Context API)
-│ ├── lib/ # Utility functions and API clients (Axios instance)
-│ ├── screens/ # Page-level components (Home, Product, Compare)
-│ ├── App.jsx # Root application component
-│ └── main.jsx # React DOM rendering entry point
-└── package.json # Frontend dependencies and scripts +```
-+## 💡 Usage + +1. Browse & Filter: Use the search bar on the homepage or click the category pills to filter products. Use the dropdowns to refine by brand, rating, or price sorting. +2. Spec Battle (Comparison): Click the "Compare" button on up to 3 products from the same category. Navigate to the "Compare" page to view a detailed, side-by-side analysis of their technical specifications, prioritized by importance. +3. User Accounts: Sign up for an account to leave reviews and ratings on products. +4. Cloud Sync: Add items to your cart, save them for later, or search for products while logged out. Once you log in, your local data seamlessly merges with your cloud profile, persisting across all your devices. +5. Admin Controls: Log in using a Super Admin account (created via the createAdmin.js script) and use the "Admin Dashboard" shield icon. As an admin, you can seamlessly create, edit, and delete products directly from the store interface.
+*Developed for seamless e-commerce performance and rich user engagement.*
