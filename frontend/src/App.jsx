@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
@@ -51,15 +51,13 @@ const AnimatedRoutes = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
-          <Header />
-          <AnimatedRoutes />
-          <CartDrawer />
-        </CartProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <CartProvider>
+        <Header />
+        <AnimatedRoutes />
+        <CartDrawer />
+      </CartProvider>
+    </AuthProvider>
   );
 };
 
